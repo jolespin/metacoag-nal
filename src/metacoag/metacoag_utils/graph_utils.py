@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from Bio import SeqIO
 
-from metacoag_utils.bidirectionalmap import BidirectionalMap
+from metacoag.metacoag_utils.bidirectionalmap import BidirectionalMap
 
 
 def get_segment_paths_spades(contig_paths):

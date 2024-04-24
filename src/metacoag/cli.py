@@ -17,9 +17,9 @@ from Bio import SeqIO
 from igraph import *
 from tqdm import tqdm
 
-from metacoag_utils import (feature_utils, graph_utils, label_prop_utils,
+from metacoag.metacoag_utils import (feature_utils, graph_utils, label_prop_utils,
                             marker_gene_utils, matching_utils)
-from metacoag_utils.bidirectionalmap import BidirectionalMap
+from metacoag.metacoag_utils.bidirectionalmap import BidirectionalMap
 
 __author__ = "Vijini Mallawaarachchi and Yu Lin"
 __copyright__ = "Copyright 2020, MetaCoAG Project"

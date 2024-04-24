@@ -5,7 +5,7 @@ import logging
 import math
 import sys
 
-from metacoag_utils import matching_utils
+from metacoag.metacoag_utils import matching_utils
 
 MAX_WEIGHT = sys.float_info.max
 
