@@ -36,8 +36,10 @@ jobs:
 
       - name: "Setup graphbin on ${{ matrix.os }} for Python ${{ matrix.python-version }}"
         run: |
+          python --version
           python -m pip install --upgrade pip
-          pip install .
+          pip install --upgrade pip wheel setuptools flit
+          flit install
       
       - name: "Generate coverage report on ${{ matrix.os }} for Python ${{ matrix.python-version }}"
         run: |

@@ -4,13 +4,8 @@ from pathlib import Path
 
 import pytest
 
-__author__ = "Vijini Mallawaarachchi and Yu Lin"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__version__ = "1.1.5"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "vijini.mallawaarachchi@anu.edu.au"
-__status__ = "Stable Release"
+__author__ = "Vijini Mallawaarachchi"
+__credits__ = ["Vijini Mallawaarachchi"]
 
 
 TEST_ROOTDIR = Path(__file__).parent
