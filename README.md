@@ -12,6 +12,7 @@
 [![Anaconda-Server Badge](https://anaconda.org/bioconda/metacoag/badges/downloads.svg)](https://anaconda.org/bioconda/metacoag)
 
 [![CI](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml/badge.svg)](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml)
+[![Coverage Status](https://coveralls.io/repos/github/metagentools/MetaCoAG/badge.svg?branch=develop)](https://coveralls.io/github/metagentools/MetaCoAG?branch=develop)
 ![GitHub](https://img.shields.io/github/license/Vini2/MetaCoAG)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![CodeQL](https://github.com/metagentools/MetaCoAG/actions/workflows/codeql.yml/badge.svg)](https://github.com/metagentools/MetaCoAG/actions/workflows/codeql.yml)
@@ -93,14 +94,21 @@ You can run the following command to install MetaCoAG using `pip`. Make sure you
 pip install .
 ```
 
-**Note:** If you use pip to setup MetaCoAG for development, you will have to install [FragGeneScan](https://sourceforge.net/projects/fraggenescan/) and [HMMER](http://hmmer.org/) manually and add them to your system path.
+### Using `flit`
+You can run the following command to install MetaCoAG using `flit`. Make sure you are in the MetaCoAG folder.
+
+```
+flit install
+```
+
+**Note:** If you use pip or flit to setup MetaCoAG for development, you will have to install [FragGeneScan](https://sourceforge.net/projects/fraggenescan/) and [HMMER](http://hmmer.org/) manually and add them to your system path.
 
 ### Test the setup
 
 After setting up, run the following command to ensure that metacoag is working.
 
 ```
-metacoag -h
+metacoag --help
 ```
 
 ## Example Usage
