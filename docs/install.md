@@ -23,7 +23,7 @@ conda create -n metacoag -c bioconda metacoag
 conda activate metacoag
 ```
 
-After setup, check if MetaCoAG is properly installed by typing `metacoag -h` on the command line. You should see the usage options.
+After setup, check if MetaCoAG is properly installed by typing `metacoag --help` on the command line. You should see the usage options.
 
 If you want to switch back to your normal environment, run the following command.
 
