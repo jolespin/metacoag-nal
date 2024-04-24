@@ -12,7 +12,7 @@ import numpy as np
 from Bio import SeqIO
 
 # Create logger
-logger = logging.getLogger("MetaCoaAG 1.1.5")
+logger = logging.getLogger("MetaCoaAG 1.2.0")
 
 # Set complements of each nucleotide
 complements = {"A": "T", "C": "G", "G": "C", "T": "A"}
