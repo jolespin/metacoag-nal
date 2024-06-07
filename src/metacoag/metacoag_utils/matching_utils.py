@@ -15,7 +15,7 @@ VERY_SMALL_DOUBLE = 1e-10
 MAX_WEIGHT = sys.float_info.max
 
 # create logger
-logger = logging.getLogger("MetaCoaAG 1.2.0")
+logger = logging.getLogger("MetaCoaAG 1.2.1")
 
 
 def normpdf(x, mean, sd):

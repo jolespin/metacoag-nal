@@ -23,7 +23,7 @@ from metacoag.metacoag_utils.bidirectionalmap import BidirectionalMap
 __author__ = "Vijini Mallawaarachchi and Yu Lin"
 __copyright__ = "Copyright 2020, MetaCoAG Project"
 __license__ = "GPL-3.0"
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 __maintainer__ = "Vijini Mallawaarachchi"
 __email__ = "vijini.mallawaarachchi@anu.edu.au"
 __status__ = "Stable Release"
@@ -69,7 +69,7 @@ def run(args):
     # Setup logger
     # ------------------------------------------------------------------------
 
-    logger = logging.getLogger("MetaCoaAG 1.2.0")
+    logger = logging.getLogger("MetaCoaAG 1.2.1")
     logger.setLevel(logging.DEBUG)
     logging.captureWarnings(True)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
