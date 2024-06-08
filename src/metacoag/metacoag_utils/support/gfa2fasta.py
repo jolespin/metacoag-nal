@@ -11,10 +11,7 @@ import re
 import subprocess
 import sys
 
-from Bio import SeqIO
-from Bio.Seq import Seq
-from Bio.SeqRecord import SeqRecord
-
+from cogent3.format.fasta import alignment_to_fasta
 __author__ = "Vijini Mallawaarachchi"
 __copyright__ = "Copyright 2020, MetaCoAG Project"
 __license__ = "GPL-3.0"
@@ -97,7 +94,7 @@ def main(graph, output, log):
 
     logger.info("Obtaining edge sequences")
 
-    sequenceset = []
+    seqs = {}
 
     with open(assembly_graph_file) as file:
         line = file.readline()
@@ -105,25 +102,17 @@ def main(graph, output, log):
         while line != "":
             if "S" in line:
                 strings = line.split("\t")
-
-                record = SeqRecord(
-                    Seq(re.sub("[^GATC]", "", str(strings[2]).upper())),
-                    id=str(strings[1]),
-                    name=str(strings[1]),
-                    description="",
-                )
-
-                sequenceset.append(record)
+                seqs[str(strings[1])] = re.sub("[^GATC]", "", str(strings[2]).upper())
 
             line = file.readline()
 
     logger.info("Writing edge sequences to FASTA file")
 
-    with open(f"{output_path}{prefix}edges.fasta", "w") as output_handle:
-        SeqIO.write(sequenceset, output_handle, "fasta")
+    with open(f"{output_path}{prefix}edges.fasta", "w") as output:
+        output.write(alignment_to_fasta(seqs))
 
     logger.info(
-        f"The FASTA file with unitig sequences can be found at {output_handle.name}"
+        f"The FASTA file with unitig sequences can be found at {output.name}"
     )
 
     # Exit program
