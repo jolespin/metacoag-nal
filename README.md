@@ -6,10 +6,11 @@
 
 [![DOI](https://img.shields.io/badge/DOI-10.1007/978--3--031--04749--7__5-informational)](https://doi.org/10.1007/978-3-031-04749-7_5)
 [![DOI](https://img.shields.io/badge/DOI-10.1089/cmb.2022.0262-green)](https://doi.org/10.1089/cmb.2022.0262)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/metacoag/badges/version.svg)](https://anaconda.org/bioconda/metacoag)
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/metacoag/README.html)
+[![Conda](https://img.shields.io/conda/v/bioconda/metacoag)](https://anaconda.org/bioconda/metacoag)
+[![Conda](https://img.shields.io/conda/dn/bioconda/metacoag)](https://anaconda.org/bioconda/metacoag)
 [![PyPI version](https://badge.fury.io/py/metacoag.svg)](https://badge.fury.io/py/metacoag)
-[![Anaconda-Server Badge](https://anaconda.org/bioconda/metacoag/badges/downloads.svg)](https://anaconda.org/bioconda/metacoag)
-
+[![Downloads](https://static.pepy.tech/badge/metacoag)](https://pepy.tech/project/metacoag)
 [![CI](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml/badge.svg)](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml)
 [![Coverage Status](https://coveralls.io/repos/github/metagentools/MetaCoAG/badge.svg?branch=develop)](https://coveralls.io/github/metagentools/MetaCoAG?branch=develop)
 ![GitHub](https://img.shields.io/github/license/Vini2/MetaCoAG)
