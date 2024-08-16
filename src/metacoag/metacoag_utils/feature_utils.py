@@ -11,8 +11,17 @@ from multiprocessing import Pool
 import numpy as np
 from Bio import SeqIO
 
+__author__ = "Vijini Mallawaarachchi and Yu Lin"
+__copyright__ = "Copyright 2020, MetaCoAG Project"
+__license__ = "GPL-3.0"
+__version__ = "1.2.1"
+__maintainer__ = "Vijini Mallawaarachchi"
+__email__ = "vijini.mallawaarachchi@anu.edu.au"
+__status__ = "Stable Release"
+
+
 # Create logger
-logger = logging.getLogger("MetaCoaAG 1.2.1")
+logger = logging.getLogger(f"MetaCoaAG {__version__}")
 
 # Set complements of each nucleotide
 complements = {"A": "T", "C": "G", "G": "C", "T": "A"}

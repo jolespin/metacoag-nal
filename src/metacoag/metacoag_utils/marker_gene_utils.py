@@ -4,8 +4,17 @@ import logging
 import os
 import pathlib
 
+__author__ = "Vijini Mallawaarachchi and Yu Lin"
+__copyright__ = "Copyright 2020, MetaCoAG Project"
+__license__ = "GPL-3.0"
+__version__ = "1.2.1"
+__maintainer__ = "Vijini Mallawaarachchi"
+__email__ = "vijini.mallawaarachchi@anu.edu.au"
+__status__ = "Stable Release"
+
+
 # create logger
-logger = logging.getLogger("MetaCoaAG 1.2.1")
+logger = logging.getLogger(f"MetaCoaAG {__version__}")
 
 
 # Modified from SolidBin

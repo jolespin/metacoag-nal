@@ -8,6 +8,15 @@ import sys
 import networkx as nx
 from scipy.spatial import distance
 
+__author__ = "Vijini Mallawaarachchi and Yu Lin"
+__copyright__ = "Copyright 2020, MetaCoAG Project"
+__license__ = "GPL-3.0"
+__version__ = "1.2.1"
+__maintainer__ = "Vijini Mallawaarachchi"
+__email__ = "vijini.mallawaarachchi@anu.edu.au"
+__status__ = "Stable Release"
+
+
 # Constants set from MaxBin 2.0
 MU_INTRA, SIGMA_INTRA = 0, 0.01037897 / 2
 MU_INTER, SIGMA_INTER = 0.0676654, 0.03419337
@@ -15,7 +24,7 @@ VERY_SMALL_DOUBLE = 1e-10
 MAX_WEIGHT = sys.float_info.max
 
 # create logger
-logger = logging.getLogger("MetaCoaAG 1.2.1")
+logger = logging.getLogger(f"MetaCoaAG {__version__}")
 
 
 def normpdf(x, mean, sd):

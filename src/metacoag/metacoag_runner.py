@@ -69,7 +69,7 @@ def run(args):
     # Setup logger
     # ------------------------------------------------------------------------
 
-    logger = logging.getLogger("MetaCoaAG 1.2.1")
+    logger = logging.getLogger(f"MetaCoaAG {__version__}")
     logger.setLevel(logging.DEBUG)
     logging.captureWarnings(True)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
