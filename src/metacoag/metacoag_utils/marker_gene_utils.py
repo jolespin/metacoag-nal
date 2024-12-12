@@ -197,7 +197,11 @@ def get_contigs_with_marker_genes(
             if line:
                 if not line.startswith('#'):
                     id_protein, id_hmm, *tmp = line.split()
-                    id_contig = protein_to_contig.get(id_protein, lambda x: x.rsplit("_", maxsplit=1)[0])
+                    id_protein, id_hmm, *tmp = line.split()
+                    try:
+                        id_contig = protein_to_contig[id_protein]
+                    except KeyError:
+                        id_contig = id_protein.rsplit("_", maxsplit=1)[0]
                     contig_num = contig_names_rev[id_contig]
                     contig_markers[contig_num].add(id_hmm)
                     contig_length = contig_lengths[contig_num]
@@ -241,7 +245,10 @@ def get_contigs_with_marker_genes_megahit(
             if line:
                 if not line.startswith('#'):
                     id_protein, id_hmm, *tmp = line.split()
-                    id_contig = protein_to_contig.get(id_protein, lambda x: x.rsplit("_", maxsplit=1)[0])
+                    try:
+                        id_contig = protein_to_contig[id_protein]
+                    except KeyError:
+                        id_contig = id_protein.rsplit("_", maxsplit=1)[0]
                     contig_num = contig_names_rev[graph_to_contig_map_rev[id_contig]]
                     contig_markers[contig_num].add(id_hmm)
                     contig_length = contig_lengths[contig_num]
