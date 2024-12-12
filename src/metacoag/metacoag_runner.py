@@ -23,7 +23,7 @@ from metacoag.metacoag_utils.bidirectionalmap import BidirectionalMap
 __author__ = "Vijini Mallawaarachchi and Yu Lin"
 __copyright__ = "Copyright 2020, MetaCoAG Project"
 __license__ = "GPL-3.0"
-__version__ = "1.2.2"
+__version__ = "1.2.3rc1"
 __maintainer__ = "Vijini Mallawaarachchi"
 __email__ = "vijini.mallawaarachchi@anu.edu.au"
 __status__ = "Stable Release"
@@ -46,7 +46,7 @@ def run(args):
     paths = args.paths
     output = args.output
     hmm = args.hmm
-    prefix = args.prefix
+    # prefix = args.prefix
     min_length = args.min_length
     p_intra = args.p_intra
     p_inter = args.p_inter
