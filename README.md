@@ -23,8 +23,6 @@ MetaCoAG is a metagenomic contig binning tool that makes use of the connectivity
 
 For detailed instructions on installation, usage and visualisation, please refer to the [documentation hosted at Read the Docs](https://metacoag.readthedocs.io/).
 
-**NEW:** MetaCoAG is now available on bioconda at 
-[https://anaconda.org/bioconda/metacoag](https://anaconda.org/bioconda/metacoag) and on PyPI at [https://pypi.org/project/metacoag/](https://pypi.org/project/metacoag/).
 
 ## Dependencies
 MetaCoAG installation requires Python 3.7 or above. You will need the following python dependencies to run MetaCoAG and related support scripts. The latest tested versions of the dependencies are listed as well.
@@ -37,72 +35,21 @@ MetaCoAG installation requires Python 3.7 or above. You will need the following 
 * [tqdm](https://github.com/tqdm/tqdm) - version 4.64.1
 * [click](https://click.palletsprojects.com/) - version 8.1.3
 
+
+## Modifications
+Modified by [Josh L. Espinoza](https://github.com/jolespin/metacoag-nal) for [Pyrodigal](https://github.com/althonos/pyrodigal) and [PyHMMSearch](https://github.com/jolespin/pyhmmsearch) support.
+
+
 MetaCoAG uses the following tools to scan for single-copy marker genes. These tools have been tested on the following versions.
-* [FragGeneScan](https://sourceforge.net/projects/fraggenescan/) - version 1.31
-* [HMMER](http://hmmer.org/) - version 3.3.2
+* [Pyrodigal](https://github.com/althonos/pyrodigal)
+* [PyHMMSearch](http://github.com/jolespin/pyhmmsearch)
 
 
-## Installing MetaCoAG using conda
+## Installing NewAtlantis Labs modified MetaCoAG
 
-We recommend that you use [`conda`](https://docs.conda.io/en/latest/) to run MetaCoAG.
+### Install via pip
 
-You can install MetaCoAG from [bioconda](https://anaconda.org/bioconda/metacoag).
-
-```shell
-# add channels
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-
-# create conda environment and install metacoag
-conda create -n metacoag -c bioconda metacoag
-
-# activate metacoag environment
-conda activate metacoag
-
-# check metacoag installation
-metacoag -h
-```
-
-## Setting up MetaCoAG for development
-
-### Downloading MetaCoAG
-You can clone the MetaCoAG repository to your machine.
-
-```
-git clone https://github.com/Vini2/MetaCoAG.git
-```
-
-Now go into the MetaCoAG folder using the command
-
-```
-cd MetaCoAG/
-```
-
-### Using `conda`
-
-Once you have installed `conda`, make sure you are in the MetaCoAG folder. Now run the following commands to create a `conda` environment and activate it to run MetaCoAG.
-
-```
-conda env create -f environment.yml
-conda activate metacoag
-```
-
-### Using `pip`
-You can run the following command to install MetaCoAG using `pip`. Make sure you are in the MetaCoAG folder.
-
-```
-pip install .
-```
-
-### Using `flit`
-You can run the following command to install MetaCoAG using `flit`. Make sure you are in the MetaCoAG folder.
-
-```
-flit install
-```
-
-**Note:** If you use pip or flit to setup MetaCoAG for development, you will have to install [FragGeneScan](https://sourceforge.net/projects/fraggenescan/) and [HMMER](http://hmmer.org/) manually and add them to your system path.
+pip install git+https://github.com/jolespin/metacoag-nal
 
 ### Test the setup
 
@@ -114,17 +61,34 @@ metacoag --help
 
 ## Example Usage
 
+### metaSPAdes
 ```
 metacoag --assembler spades --graph /path/to/graph_file.gfa --contigs /path/to/contigs.fasta --paths /path/to/paths_file.paths --abundance /path/to/abundance.tsv --output /path/to/output_folder
 ```
 
+### MEGAHIT
 ```
 metacoag --assembler megahit --graph /path/to/graph_file.gfa --contigs /path/to/contigs.fasta --abundance /path/to/abundance.tsv --output /path/to/output_folder
 ```
 
+### metaFlye
 ```
 metacoag --assembler flye --graph /path/to/assembly_graph.gfa --contigs /path/to/assembly.fasta --paths /path/to/assembly_info.txt --abundance /path/to/abundance.tsv --output /path/to/output_folder
 ```
+
+### Adding precomputed gene predictions
+
+```
+metacoag --assembler megahit --graph /path/to/graph_file.gfa --contigs /path/to/contigs.fasta --abundance /path/to/abundance.tsv --output /path/to/output_folder --proteins /path/to/proteins.faa
+```
+
+### Adding precomputed gene predictions that do not follow Prodigal formatting
+
+```
+metacoag --assembler megahit --graph /path/to/graph_file.gfa --contigs /path/to/contigs.fasta --abundance /path/to/abundance.tsv --output /path/to/output_folder --proteins /path/to/proteins.faa --proteins_to_contigs /path/to/proteins_to_contigs.tsv
+```
+
+
 
 
 ## Citation
