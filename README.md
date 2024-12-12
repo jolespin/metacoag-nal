@@ -9,22 +9,12 @@ Modified by [Josh L. Espinoza](https://github.com/jolespin/metacoag-nal) for [Py
 
 [![DOI](https://img.shields.io/badge/DOI-10.1007/978--3--031--04749--7__5-informational)](https://doi.org/10.1007/978-3-031-04749-7_5)
 [![DOI](https://img.shields.io/badge/DOI-10.1089/cmb.2022.0262-green)](https://doi.org/10.1089/cmb.2022.0262)
-[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/metacoag/README.html)
-[![Conda](https://img.shields.io/conda/v/bioconda/metacoag)](https://anaconda.org/bioconda/metacoag)
-[![Conda](https://img.shields.io/conda/dn/bioconda/metacoag)](https://anaconda.org/bioconda/metacoag)
-[![PyPI version](https://badge.fury.io/py/metacoag.svg)](https://badge.fury.io/py/metacoag)
-[![Downloads](https://static.pepy.tech/badge/metacoag)](https://pepy.tech/project/metacoag)
-[![CI](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml/badge.svg)](https://github.com/metagentools/MetaCoAG/actions/workflows/testing_python.yml)
-[![Coverage Status](https://coveralls.io/repos/github/metagentools/MetaCoAG/badge.svg?branch=develop)](https://coveralls.io/github/metagentools/MetaCoAG?branch=develop)
-![GitHub](https://img.shields.io/github/license/Vini2/MetaCoAG)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![CodeQL](https://github.com/metagentools/MetaCoAG/actions/workflows/codeql.yml/badge.svg)](https://github.com/metagentools/MetaCoAG/actions/workflows/codeql.yml)
-[![Documentation Status](https://readthedocs.org/projects/metacoag/badge/?version=latest)](https://metacoag.readthedocs.io/en/latest/?badge=latest)
 
 MetaCoAG is a metagenomic contig binning tool that makes use of the connectivity information found in assembly graphs, apart from the composition and coverage information. MetaCoAG makes use of single-copy marker genes along with a graph matching technique and a label propagation technique to bin contigs. MetaCoAG is tested on contigs obtained from next-generation sequencing (NGS) data. Currently, MetaCoAG supports contigs assembled using metaSPAdes and MEGAHIT, and recently we have added support for Flye assemblies (has not been tested extensively).
 
 For detailed instructions on installation, usage and visualisation, please refer to the [documentation hosted at Read the Docs](https://metacoag.readthedocs.io/).
 
+For original implementation, please refer to https://github/metagentools/MetaCoAG
 
 ## Dependencies
 MetaCoAG installation requires Python 3.7 or above. You will need the following python dependencies to run MetaCoAG and related support scripts. The latest tested versions of the dependencies are listed as well.
@@ -42,9 +32,6 @@ MetaCoAG installation requires Python 3.7 or above. You will need the following 
 MetaCoAG NAL mod allows for precomputed gene predictions, cleans up intermediate files, and uses the following tools to scan for single-copy marker genes. These tools have been tested on the following versions.
 * [Pyrodigal](https://github.com/althonos/pyrodigal)
 * [PyHMMSearch](http://github.com/jolespin/pyhmmsearch)
-
-
-
 
 ## Installing NewAtlantis Labs modified MetaCoAG
 
@@ -89,54 +76,17 @@ metacoag --assembler megahit --graph /path/to/graph_file.gfa --contigs /path/to/
 metacoag --assembler megahit --graph /path/to/graph_file.gfa --contigs /path/to/contigs.fasta --abundance /path/to/abundance.tsv --output /path/to/output_folder --proteins /path/to/proteins.faa --proteins_to_contigs /path/to/proteins_to_contigs.tsv
 ```
 
-
-
-
 ## Citation
-
-MetaCoAG has been accepted at [RECOMB 2022](https://recomb2022.net/accepted-papers/) and is published in Lecture Notes in Computer Science at [https://doi.org/10.1007/978-3-031-04749-7_5](https://doi.org/10.1007/978-3-031-04749-7_5).
-
-> Mallawaarachchi, V., Lin, Y. (2022). MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly Graphs. In: Pe'er, I. (eds) Research in Computational Molecular Biology. RECOMB 2022. Lecture Notes in Computer Science(), vol 13278. Springer, Cham. DOI: [https://doi.org/10.1007/978-3-031-04749-7_5](https://doi.org/10.1007/978-3-031-04749-7_5)
-
-A journal extension of MetaCoAG is published in the Journal of Computational Biology at [https://www.liebertpub.com/doi/10.1089/cmb.2022.0262](https://www.liebertpub.com/doi/10.1089/cmb.2022.0262).
-
-> Vijini Mallawaarachchi and Yu Lin. Accurate Binning of Metagenomic Contigs Using Composition, Coverage, and Assembly Graphs. Journal of Computational Biology 2022 29:12, 1357-1376. DOI: [https://doi.org/10.1089/cmb.2022.0262](https://doi.org/10.1089/cmb.2022.0262)
 
 If you use MetaCoAG in your work, please cite the following publications.
 
-```bibtex
-@InProceedings{10.1007/978-3-031-04749-7_5,
-  author="Mallawaarachchi, Vijini and Lin, Yu",
-  editor="Pe'er, Itsik",
-  title="MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly Graphs",
-  booktitle="Research in Computational Molecular Biology",
-  year="2022",
-  publisher="Springer International Publishing",
-  address="Cham",
-  pages="70--85",
-  abstract="Metagenomics has allowed us to obtain various genetic material from different species and gain valuable insights into microbial communities. Binning plays an important role in the early stages of metagenomic analysis pipelines. A typical pipeline in metagenomics binning is to assemble short reads into longer contigs and then bin into groups representing different species in the metagenomic sample. While existing binning tools bin metagenomic contigs, they do not make use of the assembly graphs that produce such assemblies. Here we propose MetaCoAG, a tool that utilizes assembly graphs with the composition and coverage information to bin metagenomic contigs. MetaCoAG uses single-copy marker genes to estimate the number of initial bins, assigns contigs into bins iteratively and adjusts the number of bins dynamically throughout the binning process. Experimental results on simulated and real datasets demonstrate that MetaCoAG significantly outperforms state-of-the-art binning tools, producing similar or more high-quality bins than the second-best tool. To the best of our knowledge, MetaCoAG is the first stand-alone contig-binning tool to make direct use of the assembly graph information.",
-  isbn="978-3-031-04749-7"
-}
+> Mallawaarachchi, V., Lin, Y. (2022). MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly Graphs. In: Pe'er, I. (eds) Research in Computational Molecular Biology. RECOMB 2022. Lecture Notes in Computer Science(), vol 13278. Springer, Cham. DOI: [https://doi.org/10.1007/978-3-031-04749-7_5](https://doi.org/10.1007/978-3-031-04749-7_5)
 
-@Article{doi:10.1089/cmb.2022.0262,
-author = {Mallawaarachchi, Vijini and Lin, Yu},
-title = {Accurate Binning of Metagenomic Contigs Using Composition, Coverage, and Assembly Graphs},
-journal = {Journal of Computational Biology},
-volume = {29},
-number = {12},
-pages = {1357--1376},
-year = {2022},
-doi = {10.1089/cmb.2022.0262},
-note ={PMID: 36367700},
-URL = {https://doi.org/10.1089/cmb.2022.0262},
-eprint = {https://doi.org/10.1089/cmb.2022.0262},
-abstract = { Metagenomics enables the recovery of various genetic materials from different species, thus providing valuable insights into microbial communities. Metagenomic binning group sequences belong to different organisms, which is an important step in the early stages of metagenomic analysis pipelines. The classic pipeline followed in metagenomic binning is to assemble short reads into longer contigs and then bin these resulting contigs into groups representing different taxonomic groups in the metagenomic sample. Most of the currently available binning tools are designed to bin metagenomic contigs, but they do not make use of the assembly graphs that produce such assemblies. In this study, we propose MetaCoAG, a metagenomic binning tool that uses assembly graphs with the composition and coverage information of contigs. MetaCoAG estimates the number of initial bins using single-copy marker genes, assigns contigs into bins iteratively, and adjusts the number of bins dynamically throughout the binning process. We show that MetaCoAG significantly outperforms state-of-the-art binning tools by producing similar or more high-quality bins than the second-best binning tool on both simulated and real datasets. To the best of our knowledge, MetaCoAG is the first stand-alone contig-binning tool that directly makes use of the assembly graph information along with other features of the contigs. }
-}
-```
+> Vijini Mallawaarachchi and Yu Lin. Accurate Binning of Metagenomic Contigs Using Composition, Coverage, and Assembly Graphs. Journal of Computational Biology 2022 29:12, 1357-1376. DOI: [https://doi.org/10.1089/cmb.2022.0262](https://doi.org/10.1089/cmb.2022.0262)
 
 ## Funding
 
-MetaCoAG is funded by an [Essential Open Source Software for Science Grant](https://chanzuckerberg.com/eoss/proposals/cogent3-python-apis-for-iq-tree-and-graphbin-via-a-plug-in-architecture/) from the Chan Zuckerberg Initiative.
+Initial implementation of MetaCoAG is funded by an [Essential Open Source Software for Science Grant](https://chanzuckerberg.com/eoss/proposals/cogent3-python-apis-for-iq-tree-and-graphbin-via-a-plug-in-architecture/) from the Chan Zuckerberg Initiative.
 
 <p align="left">
   <img src="https://chanzuckerberg.com/wp-content/themes/czi/img/logo.svg" width="300">
