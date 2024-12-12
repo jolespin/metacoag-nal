@@ -35,7 +35,13 @@ class ArgsObj:
         bin_mg_threshold,
         min_bin_size,
         delimiter,
-        nthreads
+        nthreads,
+        proteins,
+        proteins_to_contigs,
+        hmm_marker_field,
+        score_type,
+        threshold_method,
+        evalue,
     ):
         self.assembler = assembler
         self.graph = graph
@@ -57,6 +63,12 @@ class ArgsObj:
         self.min_bin_size = min_bin_size
         self.delimiter = delimiter
         self.nthreads = nthreads
+        self.proteins = proteins
+        self.proteins_to_contigs = proteins_to_contigs
+        self.hmm_marker_field = hmm_marker_field
+        self.score_type = score_type
+        self.threshold_method = threshold_method
+        self.evalue = evalue
 
 
 # Setup argument parser
