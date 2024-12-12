@@ -121,10 +121,9 @@ class ArgsObj:
 )
 @click.option(
     "--hmm_marker_field",
-    help="HMM reference type (accession, name)",
+    help="HMM reference type",
     default="name",
     show_default=True,
-    type=str,
     required=False,
     type=click.Choice(["accession", "name"]),
 )
@@ -133,7 +132,6 @@ class ArgsObj:
     help="Score reflects full sequence or domain only",
     default="full",
     show_default=True,
-    type=str,
     required=False,
     type=click.Choice(["full", "domain"]),
 )
@@ -142,7 +140,6 @@ class ArgsObj:
     help="Cutoff threshold method",
     default="trusted",
     show_default=True,
-    type=str,
     required=False,
     type=click.Choice(["gathering", "noise", "trusted", "e"]),
 )
