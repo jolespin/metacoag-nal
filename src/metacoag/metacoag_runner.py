@@ -509,7 +509,7 @@ def run(args):
             contig_markers,
         ) = marker_gene_utils.get_contigs_with_marker_genes(
             contigs_file=contigs_file,
-            hmm_out=os.path.join(output_directory, "pyhmmsearch.tsv"),
+            hmmout_file=os.path.join(output_directory, "pyhmmsearch.tsv"),
             contig_names_rev=contig_names_rev,
             # mg_length_threshold=mg_threshold,
             contig_lengths=contig_lengths,
