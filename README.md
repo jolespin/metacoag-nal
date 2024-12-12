@@ -37,7 +37,7 @@ MetaCoAG NAL mod allows for precomputed gene predictions, cleans up intermediate
 
 ### Install via pip
 
-pip install git+https://github.com/jolespin/metacoag-nal
+pip install https://github.com/jolespin/metacoag-nal/releases/download/1.2.3rc1/metacoag-1.2.3rc1.tar.gz
 
 ### Test the setup
 
