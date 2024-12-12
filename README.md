@@ -5,6 +5,8 @@
 
 # MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly Graphs
 
+Modified by [Josh L. Espinoza](https://github.com/jolespin/metacoag-nal) for [Pyrodigal](https://github.com/althonos/pyrodigal) and [PyHMMSearch](https://github.com/jolespin/pyhmmsearch) support.
+
 [![DOI](https://img.shields.io/badge/DOI-10.1007/978--3--031--04749--7__5-informational)](https://doi.org/10.1007/978-3-031-04749-7_5)
 [![DOI](https://img.shields.io/badge/DOI-10.1089/cmb.2022.0262-green)](https://doi.org/10.1089/cmb.2022.0262)
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/metacoag/README.html)
@@ -26,23 +28,22 @@ For detailed instructions on installation, usage and visualisation, please refer
 
 ## Dependencies
 MetaCoAG installation requires Python 3.7 or above. You will need the following python dependencies to run MetaCoAG and related support scripts. The latest tested versions of the dependencies are listed as well.
-* [python](https://www.python.org/) - version 3.11.0
-* [python-igraph](https://igraph.org/python/) - version 0.10.4
-* [biopython](https://biopython.org/) - version 1.80
-* [networkx](https://networkx.github.io/) - version 3.0
-* [scipy](https://www.scipy.org/) - version 1.10.0
-* [numpy](https://numpy.org/) - version 1.24.2
-* [tqdm](https://github.com/tqdm/tqdm) - version 4.64.1
-* [click](https://click.palletsprojects.com/) - version 8.1.3
+* [python](https://www.python.org/)
+* [python-igraph](https://igraph.org/python/)
+* [biopython](https://biopython.org/)
+* [networkx](https://networkx.github.io/)
+* [scipy](https://www.scipy.org/)
+* [numpy](https://numpy.org/)
+* [tqdm](https://github.com/tqdm/tqdm)
+* [click](https://click.palletsprojects.com/)
 
 
 ## Modifications
-Modified by [Josh L. Espinoza](https://github.com/jolespin/metacoag-nal) for [Pyrodigal](https://github.com/althonos/pyrodigal) and [PyHMMSearch](https://github.com/jolespin/pyhmmsearch) support.
-
-
-MetaCoAG uses the following tools to scan for single-copy marker genes. These tools have been tested on the following versions.
+MetaCoAG NAL mod allows for precomputed gene predictions, cleans up intermediate files, and uses the following tools to scan for single-copy marker genes. These tools have been tested on the following versions.
 * [Pyrodigal](https://github.com/althonos/pyrodigal)
 * [PyHMMSearch](http://github.com/jolespin/pyhmmsearch)
+
+
 
 
 ## Installing NewAtlantis Labs modified MetaCoAG
