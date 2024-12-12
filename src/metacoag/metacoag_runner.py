@@ -441,7 +441,7 @@ def run(args):
 
     logger.info("Scanning for single-copy marker genes")
 
-    if not os.path.exists(f"{contigs_file}.hmmout"):
+    if not os.path.exists(os.path.join(output_directory, "pyhmmsearch.tsv")):
         # Check if FragGeneScan is installed
         try:
             p = subprocess.run(["which", "pyrodigal"], capture_output=True)
