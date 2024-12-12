@@ -80,7 +80,7 @@ def count_kmers(args):
 
 
 def get_tetramer_profiles(
-    output_path, sequences, contigs_file, contig_lengths, min_length, nthreads
+    output_directory, sequences, contigs_file, contig_lengths, min_length, nthreads
 ):
     tetramer_profiles = {}
     normalized_tetramer_profiles = {}
@@ -88,10 +88,10 @@ def get_tetramer_profiles(
     contigs_file = contigs_file.split("/")[-1]
 
     if os.path.isfile(
-        f"{output_path}{contigs_file}.normalized_contig_tetramers.pickle"
+        f"{output_directory}{contigs_file}.normalized_contig_tetramers.pickle"
     ):
         with open(
-            f"{output_path}{contigs_file}.normalized_contig_tetramers.pickle", "rb"
+            f"{output_directory}{contigs_file}.normalized_contig_tetramers.pickle", "rb"
         ) as handle:
             normalized_tetramer_profiles = pickle.load(handle)
 
@@ -113,7 +113,7 @@ def get_tetramer_profiles(
             i += 1
 
         with open(
-            f"{output_path}{contigs_file}.normalized_contig_tetramers.pickle", "wb"
+            f"{output_directory}{contigs_file}.normalized_contig_tetramers.pickle", "wb"
         ) as handle:
             pickle.dump(
                 normalized_tetramer_profiles, handle, protocol=pickle.HIGHEST_PROTOCOL

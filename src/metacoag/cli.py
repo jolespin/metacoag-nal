@@ -30,8 +30,8 @@ class ArgsObj:
         d_limit,
         depth,
         n_mg,
-        no_cut_tc,
-        mg_threshold,
+        # no_cut_tc,
+        # mg_threshold,
         bin_mg_threshold,
         min_bin_size,
         delimiter,
@@ -51,8 +51,8 @@ class ArgsObj:
         self.d_limit = d_limit
         self.depth = depth
         self.n_mg = n_mg
-        self.no_cut_tc = no_cut_tc
-        self.mg_threshold = mg_threshold
+        # self.no_cut_tc = no_cut_tc
+        # self.mg_threshold = mg_threshold
         self.bin_mg_threshold = bin_mg_threshold
         self.min_bin_size = min_bin_size
         self.delimiter = delimiter
@@ -100,20 +100,61 @@ class ArgsObj:
     required=True,
 )
 @click.option(
+    "--proteins",
+    help="path to proteins fasta in Prodigal format",
+    type=str,
+    required=False,
+)
+@click.option(
+    "--proteins_to_contigs",
+    help="Tab-delimited file mapping proteins to contigs [id_protein]<tab>[id_contig].  If --proteins and provided without --proteins_to_contigs then id_protein formatting is assumed to be [id_contig]_[gene_number]",
+    type=str,
+    required=False,
+)
+@click.option(
     "--hmm",
-    help="path to marker.hmm file.",
-    default="auxiliary/marker.hmm",
+    help="path to marker.hmm[.gz] file.",
+    default="auxiliary/marker.hmm.gz",
     show_default=True,
     type=str,
     required=False,
 )
 @click.option(
-    "--prefix",
-    help="prefix for the output file",
+    "--hmm_marker_field",
+    help="HMM reference type (accession, name)",
+    default="name",
+    show_default=True,
     type=str,
-    default="",
+    required=False,
+    type=click.Choice(["accession", "name"]),
+)
+@click.option(
+    "--score_type",
+    help="Score reflects full sequence or domain only",
+    default="full",
+    show_default=True,
+    type=str,
+    required=False,
+    type=click.Choice(["full", "domain"]),
+)
+@click.option(
+    "--threshold_method",
+    help="Cutoff threshold method",
+    default="trusted",
+    show_default=True,
+    type=str,
+    required=False,
+    type=click.Choice(["gathering", "noise", "trusted", "e"]),
+)
+@click.option(
+    "--evalue",
+    help="E-value threshold .",
+    type=float,
+    default=10,
+    show_default=True,
     required=False,
 )
+
 @click.option(
     "--min_length",
     help="minimum length of contigs to consider for binning.",
@@ -162,22 +203,22 @@ class ArgsObj:
     show_default=True,
     required=False,
 )
-@click.option(
-    "--no_cut_tc",
-    help="do not use --cut_tc for hmmsearch.",
-    is_flag=True,
-    default=False,
-    show_default=True,
-    required=False,
-)
-@click.option(
-    "--mg_threshold",
-    help="length threshold to consider marker genes.",
-    type=click.FloatRange(0, 1, clamp=True),
-    default=0.5,
-    show_default=True,
-    required=False,
-)
+# @click.option(
+#     "--no_cut_tc",
+#     help="do not use --cut_tc for hmmsearch.",
+#     is_flag=True,
+#     default=False,
+#     show_default=True,
+#     required=False,
+# )
+# @click.option(
+#     "--mg_threshold",
+#     help="length threshold to consider marker genes.",
+#     type=click.FloatRange(0, 1, clamp=True),
+#     default=0.5,
+#     show_default=True,
+#     required=False,
+# )
 @click.option(
     "--bin_mg_threshold",
     help="minimum fraction of marker genes that should be present in a bin.",
@@ -219,19 +260,26 @@ def main(
     paths,
     output,
     hmm,
-    prefix,
+    # prefix,
     min_length,
     p_intra,
     p_inter,
     d_limit,
     depth,
     n_mg,
-    no_cut_tc,
+    # no_cut_tc,
     mg_threshold,
     bin_mg_threshold,
     min_bin_size,
     delimiter,
-    nthreads
+    nthreads,
+    proteins,
+    proteins_to_contigs,
+    hmm_marker_field,
+    score_type,
+    threshold_method,
+    evalue,
+    
 ):
     """
     MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly Graphs
@@ -246,19 +294,25 @@ def main(
         paths,
         output,
         hmm,
-        prefix,
+        # prefix,
         min_length,
         p_intra,
         p_inter,
         d_limit,
         depth,
         n_mg,
-        no_cut_tc,
-        mg_threshold,
+        # no_cut_tc,
+        # mg_threshold,
         bin_mg_threshold,
         min_bin_size,
         delimiter,
-        nthreads
+        nthreads,
+        proteins,
+        proteins_to_contigs,
+        hmm_marker_field,
+        score_type,
+        threshold_method,
+        evalue,
     )
     
     # Run MetaCoAG

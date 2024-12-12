@@ -29,12 +29,12 @@ def exec_command(cmnd, stdout=subprocess.PIPE, stderr=subprocess.PIPE):
     return out.decode("utf8") if out is not None else None
 
 
-def get_files_and_seq_counts(output_path):
-    output_files = os.listdir(output_path)
+def get_files_and_seq_counts(output_directory):
+    output_files = os.listdir(output_directory)
     seq_counts = []
     for file in output_files:
         seq_count = 0
-        with open(f"{output_path}/{file}", "r") as myfile:
+        with open(f"{output_directory}/{file}", "r") as myfile:
             for line in myfile:
                 if line.strip().startswith(">"):
                     seq_count += 1

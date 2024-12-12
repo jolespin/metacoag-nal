@@ -44,9 +44,9 @@ def main(graph, output, log):
     # -----------------------
 
     assembly_graph_file = graph
-    output_path = output
+    output_directory = output
     log_file = log
-    prefix = ""
+    # prefix = ""
 
     # Setup logger
     # ----------------------------------------------------------------------
@@ -62,7 +62,7 @@ def main(graph, output, log):
 
     # Setup output path for log file
     if log_file is None:
-        fileHandler = logging.FileHandler(f"{output_path}/gfa2fasta.log")
+        fileHandler = logging.FileHandler(f"{output_directory}/gfa2fasta.log")
     else:
         fileHandler = logging.FileHandler(f"{log_file}")
 
@@ -82,12 +82,12 @@ def main(graph, output, log):
     # ---------------------------------------------------
 
     # Handle for missing trailing forwardslash in output folder path
-    if output_path[-1:] != "/":
-        output_path = f"{output_path}/"
+    if output_directory[-1:] != "/":
+        output_directory = f"{output_directory}/"
 
     # Create output folder if it does not exist
-    if not os.path.isdir(output_path):
-        subprocess.run("mkdir -p " + output_path, shell=True)
+    if not os.path.isdir(output_directory):
+        subprocess.run("mkdir -p " + output_directory, shell=True)
 
     # Get the sequences corresponding to edges of the graph.
     # ---------------------------------------------------
@@ -108,7 +108,7 @@ def main(graph, output, log):
 
     logger.info("Writing edge sequences to FASTA file")
 
-    with open(f"{output_path}{prefix}edges.fasta", "w") as output:
+    with open(f"{output_directory}edges.fasta", "w") as output:
         output.write(alignment_to_fasta(seqs))
 
     logger.info(

@@ -5,6 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "metacoag"
 authors = [{name = "Vijini Mallawaarachchi", email = "viji.mallawaarachchi@gmail.com"}]
+maintainers = [{name = "Josh L. Espinoza", email = "jolespin@newatlantis.io"}]
 keywords = ["metagenomics", "binning", "contigs", "bioinformatics"]
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -28,6 +29,8 @@ dependencies=[
     "tqdm",
     "pandas",
     "click",
+    "pyhmmsearch",
+    "pyrodigal",
 ]
 # the following are inferred from the source code
 dynamic = ["version", "description"]

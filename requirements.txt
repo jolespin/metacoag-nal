@@ -5,3 +5,5 @@ scipy
 numpy
 pandas
 tqdm
+pyhmmsearch
+pyrodigal

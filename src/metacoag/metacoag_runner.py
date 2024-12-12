@@ -59,12 +59,19 @@ def run(args):
     min_bin_size = args.min_bin_size
     delimiter = args.delimiter
     nthreads = args.nthreads
+    proteins = args.proteins
+    proteins_to_contigs = args.proteins_to_contigs
+
+    hmm_marker_field = args.hmm_marker_field
+    score_type =  args.score_type
+    threshold_method = args.threshold_method
+    evalue = args.evalue
 
     contigs_file = contigs
     assembly_graph_file = graph
     contig_paths_file = paths
     abundance_file = abundance
-    output_path = output
+    output_directory = output
 
     # Setup logger
     # ------------------------------------------------------------------------
@@ -79,7 +86,10 @@ def run(args):
     logger.addHandler(consoleHeader)
 
     # Setup output path for log file
-    fileHandler = logging.FileHandler(f"{output_path}/{prefix}metacoag.log")
+    os.makedirs(output_directory, exist_ok=True)
+    os.makedirs(os.path.join(output_directory, "logs"),exist_ok=True)
+
+    fileHandler = logging.FileHandler(os.path.join(output_directory, "logs","metacoag.log"))
     fileHandler.setLevel(logging.DEBUG)
     fileHandler.setFormatter(formatter)
     logger.addHandler(fileHandler)
@@ -90,10 +100,10 @@ def run(args):
 
     n_bins = 0
 
-    # Validate prefix
-    if prefix != "":
-        if not prefix.endswith("_"):
-            prefix = f"{prefix}_"
+    # # Validate prefix
+    # if prefix != "":
+    #     if not prefix.endswith("_"):
+    #         prefix = f"{prefix}_"
 
     # Validate files
     # ------------------------------------------------------------------------
@@ -151,7 +161,7 @@ def run(args):
     logger.info(f"Assembly graph file: {assembly_graph_file}")
     logger.info(f"Contig paths file: {contig_paths_file}")
     logger.info(f"Abundance file: {abundance_file}")
-    logger.info(f"Final binning output file: {output_path}")
+    logger.info(f"Final binning output file: {output_directory}")
     logger.info(f"Marker gene file hmm: {hmm}")
     logger.debug(f"Number of marker genes in hmm file: {n_mg}")
     logger.info(f"Minimum length of contigs to consider: {min_length}")
@@ -160,7 +170,7 @@ def run(args):
     logger.info(f"p_inter: {p_inter}")
     logger.debug(f"bin_threshold: {bin_threshold}")
     logger.debug(f"break_threshold: {break_threshold}")
-    logger.info(f"Do not use --cut_tc: {no_cut_tc}")
+    # logger.info(f"Do not use --cut_tc: {no_cut_tc}")
     logger.info(f"mg_threshold: {mg_threshold}")
     logger.info(f"bin_mg_threshold: {bin_mg_threshold}")
     logger.info(f"min_bin_size: {min_bin_size} base pairs")
@@ -171,6 +181,31 @@ def run(args):
     start_time = time.time()
 
 
+    # Protein to contig mapping
+    protein_to_contig = dict()
+    if proteins:
+        logger.info(f"Proteins were provided: {proteins}")
+        if proteins_to_contigs:
+            logger.info(f"Proteins -> contig identifier mappings were provided: {proteins_to_contigs}")
+            with open(proteins_to_contigs, 'r') as f:
+                for line in f:
+                    if not line.startswith('#'):
+                        line = line.strip()
+                        id_protein, id_contig = line.split()
+                        protein_to_contig[id_protein] = id_contig
+        else:
+            logger.info(f"Parsing contig identifiers from protein identifiers")
+
+            with open(proteins, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        if line.startswith('>'):
+                            id_protein = line[1:].split(" ", maxsplit=1)[0]
+                            id_contig = id_protein.rsplit("_", maxsplit=1)[0]
+                            protein_to_contig[id_protein] = id_contig
+
+    
     # Get links of the assembly graph
     # ------------------------------------------------------------------------
 
@@ -390,7 +425,7 @@ def run(args):
     logger.info("Obtaining tetranucleotide frequencies of contigs")
 
     normalized_tetramer_profiles = feature_utils.get_tetramer_profiles(
-        output_path=output_path,
+        output_directory=output_directory,
         sequences=sequences,
         contigs_file=contigs_file,
         contig_lengths=contig_lengths,
@@ -409,36 +444,41 @@ def run(args):
     if not os.path.exists(f"{contigs_file}.hmmout"):
         # Check if FragGeneScan is installed
         try:
-            p = subprocess.run(["which", "run_FragGeneScan.pl"], capture_output=True)
+            p = subprocess.run(["which", "pyrodigal"], capture_output=True)
             if p.returncode != 0:
                 raise Exception("Command does not exist")
         except:
             logger.error(
-                "FragGeneScan does not exist. Please install from https://omics.informatics.indiana.edu/FragGeneScan/"
+                "Pyrodigal does not exist. Please install from https://github.com/althonos/pyrodigal"
             )
             sys.exit(1)
 
         # Check if HMMER is installed
         try:
-            p = subprocess.run(["which", "hmmsearch"], capture_output=True)
+            p = subprocess.run(["which", "pyhmmsearch"], capture_output=True)
             if p.returncode != 0:
                 raise Exception("Command does not exist")
         except:
             logger.error(
-                "hmmsearch does not exist. Please install from http://hmmer.org/"
+                "PyHMMSearch does not exist. Please install from https://github.com/jolespin/pyhmmsearch"
             )
             sys.exit(1)
 
         # Run FragGeneScan and HMMER if .hmmout file is not present
         logger.info("Obtaining hmmout file")
         marker_gene_utils.scan_for_marker_genes(
+            output_directory=output_directory,
             contigs_file=contigs_file,
             nthreads=nthreads, 
             markerURL=hmm,
-            no_cut_tc = no_cut_tc
-        )
+            proteins=proteins,
+            hmm_marker_field=hmm_marker_field, 
+            score_type=score_type,
+            threshold_method=threshold_method, 
+            evalue=evalue,
+            )
     else:
-        logger.info(".hmmout file already exists")
+        logger.info("PyHMMSearch file already exists")
 
     logger.info("Obtaining contigs with single-copy marker genes")
 
@@ -450,11 +490,16 @@ def run(args):
             contig_markers,
         ) = marker_gene_utils.get_contigs_with_marker_genes_megahit(
             contigs_file=contigs_file,
+            hmmout_file=os.path.join(output_directory, "pyhmmsearch.tsv"),
             contig_names_rev=contig_names_rev,
             graph_to_contig_map_rev=graph_to_contig_map_rev,
             mg_length_threshold=mg_threshold,
             contig_lengths=contig_lengths,
             min_length=min_length,
+            protein_to_contig=protein_to_contig,
+            
+            
+
         )
 
     else:
@@ -464,17 +509,19 @@ def run(args):
             contig_markers,
         ) = marker_gene_utils.get_contigs_with_marker_genes(
             contigs_file=contigs_file,
+            hmm_out=os.path.join(output_directory, "pyhmmsearch.tsv"),
             contig_names_rev=contig_names_rev,
             mg_length_threshold=mg_threshold,
             contig_lengths=contig_lengths,
             min_length=min_length,
+            protein_to_contig=protein_to_contig,
         )
 
-        all_contig_markers = marker_gene_utils.get_all_contigs_with_marker_genes(
-            contigs_file=contigs_file,
-            contig_names_rev=contig_names_rev,
-            mg_length_threshold=mg_threshold,
-        )
+        # all_contig_markers = marker_gene_utils.get_all_contigs_with_marker_genes(
+        #     contigs_file=contigs_file,
+        #     contig_names_rev=contig_names_rev,
+        #     mg_length_threshold=mg_threshold,
+        # )
 
     logger.info(f"Number of contigs containing single-copy marker genes: {len(contig_markers)}")
 
@@ -1006,8 +1053,8 @@ def run(args):
     # ----------------------------------------------------------
 
     # Get output path
-    output_bins_path = f"{output_path}/{prefix}bins"
-    lq_output_bins_path = f"{output_path}/{prefix}low_quality_bins"
+    output_bins_path = f"{output_directory}/bins"
+    lq_output_bins_path = f"{output_directory}/low_quality_bins"
 
     # Create output directory for bin files
     if not os.path.isdir(output_bins_path):
@@ -1020,7 +1067,7 @@ def run(args):
 
     final_bin_count = 0
 
-    with open(f"{output_path}/{prefix}contig_to_bin.tsv", mode="w") as out_file:
+    with open(f"{output_directory}/contig_to_bin.tsv", mode="w") as out_file:
         output_writer = csv.writer(
             out_file, delimiter=delimiter, quotechar='"', quoting=csv.QUOTE_MINIMAL
         )
@@ -1065,12 +1112,12 @@ def run(args):
 
     for bin_name in set(final_bins.values()):
         bin_files[bin_name] = open(
-            f"{output_bins_path}/{prefix}bin_{bin_name}.fasta", "w+"
+            f"{output_bins_path}/bin_{bin_name}.fa", "w+"
         )
 
     for bin_name in set(lowq_bins.values()):
         bin_files[bin_name] = open(
-            f"{lq_output_bins_path}/{prefix}bin_{bin_name}_seqs.fasta", "w+"
+            f"{lq_output_bins_path}/bin_{bin_name}_seqs.fa", "w+"
         )
 
     for n, record in tqdm(
