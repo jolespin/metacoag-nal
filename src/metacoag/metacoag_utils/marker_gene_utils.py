@@ -94,7 +94,7 @@ def scan_for_marker_genes(output_directory, contigs_file, nthreads, markerURL, p
 
         if not (os.path.exists(hmmResultURL)):
             hmmCmd = [
-                pyhmmsearchURL
+                pyhmmsearchURL,
                 '-i', 
                 pyrodigalResultURL, 
                 "-o", 
