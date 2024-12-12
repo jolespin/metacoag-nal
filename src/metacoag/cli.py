@@ -7,7 +7,7 @@ from metacoag import metacoag_runner
 __author__ = "Vijini Mallawaarachchi and Yu Lin"
 __copyright__ = "Copyright 2020, MetaCoAG Project"
 __license__ = "GPL-3.0"
-__version__ = "1.2.2"
+__version__ = "1.2.3rc1"
 __maintainer__ = "Vijini Mallawaarachchi"
 __email__ = "vijini.mallawaarachchi@anu.edu.au"
 __status__ = "Stable Release"
@@ -23,7 +23,7 @@ class ArgsObj:
         paths,
         output,
         hmm,
-        prefix,
+        # prefix,
         min_length,
         p_intra,
         p_inter,
@@ -50,7 +50,7 @@ class ArgsObj:
         self.paths = paths
         self.output = output
         self.hmm = hmm
-        self.prefix = prefix
+        # self.prefix = prefix
         self.min_length = min_length
         self.p_intra = p_intra
         self.p_inter = p_inter
