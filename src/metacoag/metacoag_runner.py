@@ -54,7 +54,7 @@ def run(args):
     depth = args.depth
     n_mg = args.n_mg
     no_cut_tc = args.no_cut_tc
-    mg_threshold = args.mg_threshold
+    # mg_threshold = args.mg_threshold
     bin_mg_threshold = args.bin_mg_threshold
     min_bin_size = args.min_bin_size
     delimiter = args.delimiter
@@ -171,7 +171,7 @@ def run(args):
     logger.debug(f"bin_threshold: {bin_threshold}")
     logger.debug(f"break_threshold: {break_threshold}")
     # logger.info(f"Do not use --cut_tc: {no_cut_tc}")
-    logger.info(f"mg_threshold: {mg_threshold}")
+    # logger.info(f"mg_threshold: {mg_threshold}")
     logger.info(f"bin_mg_threshold: {bin_mg_threshold}")
     logger.info(f"min_bin_size: {min_bin_size} base pairs")
     logger.info(f"d_limit: {d_limit}")
@@ -493,7 +493,7 @@ def run(args):
             hmmout_file=os.path.join(output_directory, "pyhmmsearch.tsv"),
             contig_names_rev=contig_names_rev,
             graph_to_contig_map_rev=graph_to_contig_map_rev,
-            mg_length_threshold=mg_threshold,
+            # mg_length_threshold=mg_threshold,
             contig_lengths=contig_lengths,
             min_length=min_length,
             protein_to_contig=protein_to_contig,
@@ -511,7 +511,7 @@ def run(args):
             contigs_file=contigs_file,
             hmm_out=os.path.join(output_directory, "pyhmmsearch.tsv"),
             contig_names_rev=contig_names_rev,
-            mg_length_threshold=mg_threshold,
+            # mg_length_threshold=mg_threshold,
             contig_lengths=contig_lengths,
             min_length=min_length,
             protein_to_contig=protein_to_contig,

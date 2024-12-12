@@ -122,7 +122,7 @@ class ArgsObj:
 @click.option(
     "--hmm_marker_field",
     help="HMM reference type",
-    default="name",
+    default="accession",
     show_default=True,
     required=False,
     type=click.Choice(["accession", "name"]),
@@ -265,7 +265,7 @@ def main(
     depth,
     n_mg,
     # no_cut_tc,
-    mg_threshold,
+    # mg_threshold,
     bin_mg_threshold,
     min_bin_size,
     delimiter,

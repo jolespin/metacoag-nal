@@ -182,7 +182,7 @@ def get_contigs_with_marker_genes(
     contigs_file, 
     hmmout_file,
     contig_names_rev, 
-    mg_length_threshold,
+    # mg_length_threshold,
     contig_lengths, #
     min_length,
     protein_to_contig,
@@ -222,7 +222,7 @@ def get_contigs_with_marker_genes_megahit(
     hmmout_file,
     contig_names_rev, 
     graph_to_contig_map_rev,
-    mg_length_threshold,
+    # mg_length_threshold,
     contig_lengths, #
     min_length,
     protein_to_contig,
