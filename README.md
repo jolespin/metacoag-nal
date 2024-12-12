@@ -45,6 +45,61 @@ After setting up, run the following command to ensure that metacoag is working.
 
 ```
 metacoag --help
+Usage: metacoag [OPTIONS]
+
+  MetaCoAG: Binning Metagenomic Contigs via Composition, Coverage and Assembly
+  Graphs
+
+Options:
+  --assembler [spades|megahit|megahitc|flye|custom]
+                                  name of the assembler used. (Supports
+                                  SPAdes, MEGAHIT and Flye)  [required]
+  --graph PATH                    path to the assembly graph file  [required]
+  --contigs PATH                  path to the contigs file  [required]
+  --abundance PATH                path to the abundance file  [required]
+  --paths PATH                    path to the contigs.paths (metaSPAdes) or
+                                  assembly.info (metaFlye) file
+  --output PATH                   path to the output folder  [required]
+  --proteins TEXT                 path to proteins fasta in Prodigal format
+  --proteins_to_contigs TEXT      Tab-delimited file mapping proteins to
+                                  contigs [id_protein]<tab>[id_contig].  If
+                                  --proteins and provided without
+                                  --proteins_to_contigs then id_protein
+                                  formatting is assumed to be
+                                  [id_contig]_[gene_number]
+  --hmm TEXT                      path to marker.hmm[.gz] file.  [default:
+                                  auxiliary/marker.hmm.gz]
+  --hmm_marker_field [accession|name]
+                                  HMM reference type  [default: accession]
+  --score_type [full|domain]      Score reflects full sequence or domain only
+                                  [default: full]
+  --threshold_method [gathering|noise|trusted|e]
+                                  Cutoff threshold method  [default: trusted]
+  --evalue FLOAT                  E-value threshold .  [default: 10]
+  --min_length INTEGER            minimum length of contigs to consider for
+                                  binning.  [default: 1000]
+  --p_intra FLOAT RANGE           minimum probability of an edge matching to
+                                  assign to the same bin.  [default: 0.1;
+                                  0<=x<=1]
+  --p_inter FLOAT RANGE           maximum probability of an edge matching to
+                                  create a new bin.  [default: 0.01; 0<=x<=1]
+  --d_limit INTEGER               distance limit for contig matching.
+                                  [default: 20]
+  --depth INTEGER                 depth to consider for label propagation.
+                                  [default: 10]
+  --n_mg INTEGER                  total number of marker genes.  [default:
+                                  108]
+  --bin_mg_threshold FLOAT RANGE  minimum fraction of marker genes that should
+                                  be present in a bin.  [default: 0.33333;
+                                  0<=x<=1]
+  --min_bin_size INTEGER          minimum size of a bin to output in base
+                                  pairs (bp).  [default: 200000]
+  --delimiter [,|;|$'\t'|" "]     delimiter for output results. Supports a
+                                  comma (,), a semicolon (;), a tab ($'\t'), a
+                                  space (" ") and a pipe (|) .  [default: ,]
+  --nthreads INTEGER              number of threads to use.  [default: 8]
+  -v, --version                   Show the version and exit.
+  --help                          Show this message and exit.
 ```
 
 ## Example Usage
