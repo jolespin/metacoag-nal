@@ -53,7 +53,7 @@ def run(args):
     d_limit = args.d_limit
     depth = args.depth
     n_mg = args.n_mg
-    no_cut_tc = args.no_cut_tc
+    # no_cut_tc = args.no_cut_tc
     # mg_threshold = args.mg_threshold
     bin_mg_threshold = args.bin_mg_threshold
     min_bin_size = args.min_bin_size
