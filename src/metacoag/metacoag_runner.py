@@ -11,6 +11,7 @@ import pathlib
 import subprocess
 import sys
 import time
+import re
 
 from Bio import SeqIO
 from igraph import *
@@ -20,13 +21,7 @@ from metacoag.metacoag_utils import (feature_utils, graph_utils, label_prop_util
                             marker_gene_utils, matching_utils)
 from metacoag.metacoag_utils.bidirectionalmap import BidirectionalMap
 
-__author__ = "Vijini Mallawaarachchi and Yu Lin"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__version__ = "1.2.3rc1"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "vijini.mallawaarachchi@anu.edu.au"
-__status__ = "Stable Release"
+from metacoag import __version__
 
 # Set global paramters
 # ---------------------------------------------------
@@ -104,6 +99,38 @@ def run(args):
     # if prefix != "":
     #     if not prefix.endswith("_"):
     #         prefix = f"{prefix}_"
+
+    # Check assembler type
+    if assembler.lower() == "auto":
+        logger.info(f"Detecting assembler type from contigs: {contigs}")
+        test_contig = None
+        with open(contigs, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    if line.startswith(">"):
+                        test_contig = line[1:].split(" ", maxsplit=1)[0]
+                        break
+        # Regex pattern to match k[number]_[number]
+        megahit_pattern = r'k\d+_\d+'
+
+        if test_contig:
+            if all([
+                "NODE_" in test_contig,
+                "length_" in test_contig,
+                "cov_" in test_contig,
+            ]):
+                assembler = "spades"
+            elif re.findall(megahit_pattern, test_contig):
+                assembler = "megahit"
+            elif all([
+                "contig_" in test_contig,
+            ]):
+                assembler = "flye"
+            logger.info(f"Detected assembler type: {assembler}")
+
+        else:
+            raise Exception("Could not find a contig identifier in the contigs file. Please make sure the contigs file is in the correct format.")
 
     # Validate files
     # ------------------------------------------------------------------------

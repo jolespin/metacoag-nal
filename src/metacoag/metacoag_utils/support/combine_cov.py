@@ -8,12 +8,8 @@ import glob
 import click
 import pandas as pd
 
-__author__ = "Vijini Mallawaarachchi"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__type__ = "Support Script"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "viji.mallawaarachchi@gmail.com"
+from metacoag import __version__
+
 
 
 @click.command()

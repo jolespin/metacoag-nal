@@ -3,14 +3,8 @@
 import click
 
 from metacoag import metacoag_runner
+from metacoag import __version__
 
-__author__ = "Vijini Mallawaarachchi and Yu Lin"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__version__ = "1.2.3rc1"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "vijini.mallawaarachchi@anu.edu.au"
-__status__ = "Stable Release"
 
 
 class ArgsObj:
@@ -78,8 +72,10 @@ class ArgsObj:
 @click.option(
     "--assembler",
     help="name of the assembler used. (Supports SPAdes, MEGAHIT and Flye)",
-    type=click.Choice(["spades", "megahit", "megahitc", "flye", "custom"], case_sensitive=False),
-    required=True,
+    type=click.Choice(["auto", "spades", "megahit", "megahitc", "flye", "custom"], case_sensitive=False),
+    required=False,
+    default="auto",
+    show_default=True,
 )
 @click.option(
     "--graph",

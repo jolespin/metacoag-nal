@@ -12,12 +12,8 @@ import subprocess
 import sys
 
 from cogent3.format.fasta import alignment_to_fasta
-__author__ = "Vijini Mallawaarachchi"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__type__ = "Support Script"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "viji.mallawaarachchi@gmail.com"
+from metacoag import __version__
+
 
 
 @click.command()

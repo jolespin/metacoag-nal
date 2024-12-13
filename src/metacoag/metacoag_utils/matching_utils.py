@@ -8,13 +8,7 @@ import sys
 import networkx as nx
 from scipy.spatial import distance
 
-__author__ = "Vijini Mallawaarachchi and Yu Lin"
-__copyright__ = "Copyright 2020, MetaCoAG Project"
-__license__ = "GPL-3.0"
-__version__ = "1.2.2"
-__maintainer__ = "Vijini Mallawaarachchi"
-__email__ = "vijini.mallawaarachchi@anu.edu.au"
-__status__ = "Stable Release"
+from metacoag import __version__
 
 
 # Constants set from MaxBin 2.0

@@ -1,0 +1,1 @@
+binning_wrapper.py -f data/5G_metaspades/contigs.fasta -c data/5G_metaspades/coverm_mean_coverage.tsv -o data/5G_metaspades/binning_wrapper_output/ -a metacoag --graph data/5G_metaspades/assembly_graph_with_scaffolds.gfa  --paths data/5G_metaspades/contigs.paths  -p=-1
