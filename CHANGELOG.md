@@ -1,4 +1,7 @@
 # Change Log
+## 1.2.3rc3
+* [2024.12.13] - Added support for Python v3.8.x
+
 ## 1.2.3rc2
 * [2024.12.12] - Added `--assembler auto` to automatically detect assembler used
 
