@@ -36,9 +36,9 @@ MetaCoAG NAL mod allows for precomputed gene predictions, cleans up intermediate
 ## Installing NewAtlantis Labs modified MetaCoAG
 
 ### Install via pip
-
+```
 pip install https://github.com/jolespin/metacoag-nal/releases/download/1.2.3rc3/metacoag-1.2.3rc3.tar.gz
-
+```
 ### Test the setup
 
 After setting up, run the following command to ensure that metacoag is working.
