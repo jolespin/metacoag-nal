@@ -1,0 +1,58 @@
+{% set name = "metacoag" %}
+{% set version = "1.2.3rc3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/jolespin/metacoag-nal/releases/download/{{ version }}/metacoag-{{ version }}.tar.gz
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  entry_points:
+    - metacoag = metacoag.cli:main
+    - combine_cov = metacoag.metacoag_utils.support.combine_cov:main
+
+requirements:
+  host:
+    - python >=3.8,<3.13
+    - pip
+    - flit-core >=3.2,<4
+  
+  run:
+    - python >=3.8,<3.13
+    - biopython
+    - python-igraph
+    - networkx
+    - scipy
+    - numpy
+    - tqdm
+    - pandas
+    - click
+    - pyhmmsearch
+    - pyrodigal
+
+test:
+  imports:
+    - metacoag
+  commands:
+    - metacoag --help
+    - combine_cov --help
+  requires:
+    - pip
+
+about:
+  home: https://github.com/new-atlantis-labs/metacoag-nal
+  license: GPL-3.0-only
+  license_file: LICENSE
+  summary: "MetaCoaG is a bioinformatics tool for metagenomics binning of contigs"
+  description: |
+    MetaCoAG NAL mod adds Pyrodigal and PyHMMSearch support to MetaCoAG. 
+  dev_url: https://github.com/jolespin/metacoag-nal
+
+extra:
+  recipe-maintainers:
+    - jolespin
