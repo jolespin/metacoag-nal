@@ -68,42 +68,59 @@ class ArgsObj:
 # Setup argument parser
 # ---------------------------------------------------
 
-@click.command()
+@click.command(context_settings=dict(help_option_names=["-h", "--help"]))
+
+
 @click.option(
-    "--assembler",
-    help="name of the assembler used. (Supports SPAdes, MEGAHIT and Flye)",
-    type=click.Choice(["auto", "spades", "megahit", "megahitc", "flye", "custom"], case_sensitive=False),
-    required=False,
-    default="auto",
-    show_default=True,
-)
-@click.option(
-    "--graph",
-    help="path to the assembly graph file",
-    type=click.Path(exists=True),
-    required=True,
-)
-@click.option(
+    "-f",
     "--contigs",
     help="path to the contigs file",
     type=click.Path(exists=True),
     required=True,
 )
 @click.option(
+    "-c",
     "--abundance",
-    help="path to the abundance file",
+    help="path to the coverage/abundance file",
     type=click.Path(exists=True),
     required=True,
 )
 @click.option(
-    "--paths",
-    help="path to the contigs.paths (metaSPAdes) or assembly.info (metaFlye) file",
-    type=click.Path(exists=True),
+    "-a",
+    "--assembler",
+    help="name of the assembler used. (Supports SPAdes, MEGAHIT and Flye).  Use 'auto' to detect.",
+    type=click.Choice(["auto", "spades", "megahit", "megahitc", "flye", "custom"], case_sensitive=False),
     required=False,
+    default="auto",
+    show_default=True,
 )
 @click.option(
+    "-g",
+    "--graph",
+    help="path to the assembly graph file.  Use 'auto' to search in contig directory for 'assembly_graph_with_scaffolds.gfa' for spades/megahit and 'assembly_graph.gfa' for flye",
+    default="auto",
+    type=str,
+    # type=click.Path(exists=True),
+    required=False,
+    show_default=True,
+
+)
+
+@click.option(
+    "-p",
+    "--paths",
+    help="path to the de Bruijn graph contigs/scaffolds path.  Use 'auto' to search in contig directory for 'scaffolds/contigs.paths' for spades and 'assembly_info.txt' for flye",
+    default="auto",
+    type=str,
+    # type=click.Path(exists=True),
+    required=False,
+    show_default=True,
+)
+
+@click.option(
+    "-o",
     "--output",
-    help="path to the output folder",
+    help="path to the output directory",
     type=click.Path(dir_okay=True, writable=True, readable=True),
     required=True,
 )
@@ -249,6 +266,7 @@ class ArgsObj:
     required=False,
 )
 @click.option(
+    "-t",
     "--nthreads",
     help="number of threads to use.",
     type=int,

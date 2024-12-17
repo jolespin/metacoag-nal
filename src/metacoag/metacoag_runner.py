@@ -28,6 +28,84 @@ from metacoag import __version__
 
 MAX_WEIGHT = sys.float_info.max
 
+def get_assembler_type(assembler, contigs, logger):
+    if assembler.lower() == "auto":
+        logger.info(f"Detecting assembler type from contigs: {contigs}")
+        test_contig = None
+        with open(contigs, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    if line.startswith(">"):
+                        test_contig = line[1:].split(" ", maxsplit=1)[0]
+                        break
+        # Regex pattern to match k[number]_[number]
+        megahit_pattern = r'k\d+_\d+'
+
+        if test_contig:
+            if all([
+                "NODE_" in test_contig,
+                "length_" in test_contig,
+                "cov_" in test_contig,
+            ]):
+                assembler = "spades"
+            elif re.findall(megahit_pattern, test_contig):
+                assembler = "megahit"
+            elif all([
+                "contig_" in test_contig,
+            ]):
+                assembler = "flye"
+            logger.info(f"Detected assembler type: {assembler}")
+
+        else:
+            raise Exception("Could not find a contig identifier in the contigs file. Please make sure the contigs file is in the correct format.")
+        
+    return assembler
+    
+def get_paths(paths, assembler, contigs, logger):
+    if assembler in {"megahit", "megahitc", "custom"}:
+        return None
+    else:
+        if paths.lower() == "auto":
+            contigs_directory, fn = os.path.split(contigs)
+            basename = fn.rsplit(".", maxsplit=1)[0]
+            
+
+            paths = None
+            if assembler in {"spades"}:
+                paths_testing = os.path.join(contigs_directory, f"{basename}.paths")
+            elif assembler == "flye":
+                paths_testing = os.path.join(contigs_directory, "assembly_info.txt")
+
+            if os.path.exists(paths_testing):
+                paths = paths_testing                
+                logger.info(f"Found paths for assembler {assembler}: {paths}")
+
+            else:
+                raise Exception("Could not find de Bruijn paths in contigs directory. Please provide the --paths explicitly.")
+        if not os.path.exists(paths):
+            raise FileNotFoundError(f"Cannot find paths file: {paths}")
+        return paths
+
+def get_graph(graph, assembler, contigs, logger):
+    if graph.lower() == "auto":
+        contigs_directory = os.path.split(contigs)[0]
+
+        graph = None
+        if assembler in {"spades", "megahit", "megahitc", "custom"}:
+            graph_testing = os.path.join(contigs_directory, "assembly_graph_with_scaffolds.gfa")
+        elif assembler == "flye":
+            graph_testing = os.path.join(contigs_directory, "assembly_graph.gfa")
+
+        if os.path.exists(graph_testing):
+            graph = graph_testing                
+            logger.info(f"Found graph for assembler {assembler}: {graph}")
+
+        else:
+            raise Exception("Could not find de Bruijn graph in contigs directory. Please provide the --graph explicitly.")
+    if not os.path.exists(graph):
+        raise FileNotFoundError(f"Cannot find graph file: {graph}")
+    return graph
 
 def run(args):
 
@@ -100,41 +178,13 @@ def run(args):
     #     if not prefix.endswith("_"):
     #         prefix = f"{prefix}_"
 
-    # Check assembler type
-    if assembler.lower() == "auto":
-        logger.info(f"Detecting assembler type from contigs: {contigs}")
-        test_contig = None
-        with open(contigs, "r") as f:
-            for line in f:
-                line = line.strip()
-                if line:
-                    if line.startswith(">"):
-                        test_contig = line[1:].split(" ", maxsplit=1)[0]
-                        break
-        # Regex pattern to match k[number]_[number]
-        megahit_pattern = r'k\d+_\d+'
-
-        if test_contig:
-            if all([
-                "NODE_" in test_contig,
-                "length_" in test_contig,
-                "cov_" in test_contig,
-            ]):
-                assembler = "spades"
-            elif re.findall(megahit_pattern, test_contig):
-                assembler = "megahit"
-            elif all([
-                "contig_" in test_contig,
-            ]):
-                assembler = "flye"
-            logger.info(f"Detected assembler type: {assembler}")
-
-        else:
-            raise Exception("Could not find a contig identifier in the contigs file. Please make sure the contigs file is in the correct format.")
-
+    # Check required files
+    assembler = get_assembler_type(assembler, contigs_file, logger)
+    assembly_graph_file = get_graph(assembly_graph_file, assembler, contigs_file, logger)
+    contig_paths_file = get_paths(contig_paths_file, assembler, contigs_file, logger)
+    
     # Validate files
     # ------------------------------------------------------------------------
-
     # Check if paths file is provided when the assembler type is SPAdes
     if assembler.lower() == "spades" and contig_paths_file is None:
         logger.error("Please make sure to provide the path to the contigs.paths file.")

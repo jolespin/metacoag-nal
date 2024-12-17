@@ -1,4 +1,9 @@
 # Change Log
+
+## 1.2.3rc4
+* [2024.12.16] - Added `--graph auto` and `--paths auto` to try and automatically detect files
+* [2024.12.16] - Added alias for key command line arguments
+
 ## 1.2.3rc3
 * [2024.12.13] - Added support for Python v3.8.x
 

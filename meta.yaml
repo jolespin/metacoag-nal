@@ -46,7 +46,7 @@ test:
 
 about:
   home: https://github.com/new-atlantis-labs/metacoag-nal
-  license: GPL-3.0-only
+  license: GPL-3.0
   license_file: LICENSE
   summary: "MetaCoaG is a bioinformatics tool for metagenomics binning of contigs"
   description: |
