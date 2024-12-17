@@ -51,15 +51,25 @@ Usage: metacoag [OPTIONS]
   Graphs
 
 Options:
-  --assembler [spades|megahit|megahitc|flye|custom]
+  -f, --contigs PATH              path to the contigs file  [required]
+  -c, --abundance PATH            path to the coverage/abundance file
+                                  [required]
+  -a, --assembler [auto|spades|megahit|megahitc|flye|custom]
                                   name of the assembler used. (Supports
-                                  SPAdes, MEGAHIT and Flye)  [required]
-  --graph PATH                    path to the assembly graph file  [required]
-  --contigs PATH                  path to the contigs file  [required]
-  --abundance PATH                path to the abundance file  [required]
-  --paths PATH                    path to the contigs.paths (metaSPAdes) or
-                                  assembly.info (metaFlye) file
-  --output PATH                   path to the output folder  [required]
+                                  SPAdes, MEGAHIT and Flye).  Use 'auto' to
+                                  detect.  [default: auto]
+  -g, --graph TEXT                path to the assembly graph file.  Use 'auto'
+                                  to search in contig directory for
+                                  'assembly_graph_with_scaffolds.gfa' for
+                                  spades/megahit and 'assembly_graph.gfa' for
+                                  flye  [default: auto]
+  -p, --paths TEXT                path to the de Bruijn graph
+                                  contigs/scaffolds path.  Use 'auto' to
+                                  search in contig directory for
+                                  'scaffolds/contigs.paths' for spades and
+                                  'assembly_info.txt' for flye  [default:
+                                  auto]
+  -o, --output PATH               path to the output directory  [required]
   --proteins TEXT                 path to proteins fasta in Prodigal format
   --proteins_to_contigs TEXT      Tab-delimited file mapping proteins to
                                   contigs [id_protein]<tab>[id_contig].  If
@@ -97,9 +107,9 @@ Options:
   --delimiter [,|;|$'\t'|" "]     delimiter for output results. Supports a
                                   comma (,), a semicolon (;), a tab ($'\t'), a
                                   space (" ") and a pipe (|) .  [default: ,]
-  --nthreads INTEGER              number of threads to use.  [default: 8]
+  -t, --nthreads INTEGER          number of threads to use.  [default: 8]
   -v, --version                   Show the version and exit.
-  --help                          Show this message and exit.
+  -h, --help                      Show this message and exit.
 ```
 
 ## Example Usage
