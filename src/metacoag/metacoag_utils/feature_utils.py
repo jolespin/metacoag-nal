@@ -183,7 +183,8 @@ def get_cov_len_megahit(
     sequences = []
 
     for index, record in enumerate(SeqIO.parse(contigs_file, "fasta")):
-        contig_num = contig_names_rev[graph_to_contig_map_rev[record.id]]
+        label = graph_to_contig_map_rev[record.id]
+        contig_num = contig_names_rev[label]
         length = len(record.seq)
         contig_lengths[contig_num] = length
         sequences.append(str(record.seq))

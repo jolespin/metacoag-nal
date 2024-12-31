@@ -1202,7 +1202,8 @@ def run(args):
         desc="Splitting contigs into bins",
     ):
         if assembler == "megahit":
-            contig_num = contig_names_rev[graph_to_contig_map_rev[record.id]]
+            label = graph_to_contig_map_rev[record.id]
+            contig_num = contig_names_rev[label]
         else:
             contig_num = contig_names_rev[record.id]
 

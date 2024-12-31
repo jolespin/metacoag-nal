@@ -1,9 +1,0 @@
-biopython
-igraph
-networkx
-scipy
-numpy
-pandas
-tqdm
-pyhmmsearch
-pyrodigal
