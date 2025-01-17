@@ -241,7 +241,8 @@ def get_contigs_with_marker_genes_megahit(
                         id_contig = protein_to_contig[id_protein]
                     except KeyError:
                         id_contig = id_protein.rsplit("_", maxsplit=1)[0]
-                    contig_num = contig_names_rev[graph_to_contig_map_rev[id_contig]]
+                    label = graph_to_contig_map_rev[id_contig]
+                    contig_num = contig_names_rev[label]
                     contig_markers[contig_num].add(id_hmm)
                     contig_length = contig_lengths[contig_num]
 

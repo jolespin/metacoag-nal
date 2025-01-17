@@ -16,6 +16,9 @@ For detailed instructions on installation, usage and visualisation, please refer
 
 For original implementation, please refer to https://github/metagentools/MetaCoAG
 
+Note: If you are using `megahit` then you must have the entire assembly in the contigs file and it cannot be a subset which is not the case for `metaspades`.  `flye` has not been tested with contigs subset.
+
+
 ## Dependencies
 MetaCoAG installation requires Python 3.7 or above. You will need the following python dependencies to run MetaCoAG and related support scripts. The latest tested versions of the dependencies are listed as well.
 * [python](https://www.python.org/)

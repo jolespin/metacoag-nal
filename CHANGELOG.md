@@ -21,4 +21,4 @@
 ## Pending:
 * Add precomputed `PyHMMSearch` results
 * Check abundance tables to make sure there are 2 columns
-* If `--graph auto` or `--paths auto` do not find files in `--contigs` directory then look in BAM directory (useful for `VEBA` when using unbinned.fasta)
+* Allow for graphs with subsets of scaffolds
